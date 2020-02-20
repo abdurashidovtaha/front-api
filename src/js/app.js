@@ -36,12 +36,12 @@ formSubmitEl.onsubmit = evt => {
 };
 
 function getAllPosts() {
+    loading.classList.remove('hidden');
     const queryParams = '/posts';
     const xhr = new XMLHttpRequest();
     xhr.open('GET', `${url}${queryParams}`);
 
     xhr.onload = () => {
-        loading.classList.remove('hidden');
         //load-error-loadend
         const response = xhr.responseText;//xhr.response->DORA xdsh=> chize ki az back miya
         posts = JSON.parse(response);
@@ -85,6 +85,7 @@ function getAllPosts() {
 }
 
 function addData() {
+    loading.classList.remove('hidden');
     const queryParams = "/posts";
     const xhr = new XMLHttpRequest();
     xhr.open('POST', `${url}${queryParams}`);
@@ -100,7 +101,6 @@ function addData() {
     };
 
     xhr.onload = () => {
-        loading.classList.remove('hidden');
     }
 
     xhr.onloadend = () => {
@@ -111,6 +111,7 @@ function addData() {
 }
 
 function editData(id) {
+    loading.classList.remove('hidden');
     const queryParams = "/posts";
     const xhr = new XMLHttpRequest();
     xhr.open('POST', `${url}${queryParams}`);
@@ -126,7 +127,6 @@ function editData(id) {
     };
 
     xhr.onload = () => {
-        loading.classList.remove('hidden');
     }
 
     xhr.onloadend = () => {
@@ -138,12 +138,17 @@ function editData(id) {
 }
 
 function deleteBtn(id) {
+    loading.classList.remove('hidden');
     const queryParams = `/posts/${id}`;
     const xhr = new XMLHttpRequest();
     xhr.open('DELETE', `${url}${queryParams}`);
     xhr.onload = () => {
         getAllPosts();
         console.log(id);
+    }
+
+    xhr.onloadend = () => {
+        loading.classList.add('hidden');
     }
 
     xhr.send();
