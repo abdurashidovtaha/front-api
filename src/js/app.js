@@ -1,5 +1,6 @@
 const url = 'http://localhost:9999/api';
 const rootEl = document.getElementById('root');
+const img = '../media/loader.gif';
 
 let posts = [];
 getAllPosts();
@@ -21,6 +22,10 @@ rootEl.innerHTML = `
         <button>give me the id</button>
     </form> */}
 
+const loading = document.createElement('img');
+loading.src = img; 
+rootEl.appendChild(loading);
+loading.classList.add('hidden');
     
 const formSubmitEl = rootEl.querySelector('[data-action="submit-form"]');
 const inputPriceEl = rootEl.querySelector('[data-id="price"]');
@@ -86,6 +91,7 @@ function getAllPosts() {
     xhr.open('GET', `${url}${queryParams}`);
 
     xhr.onload = () => {
+        loading.classList.remove('hidden');
         //load-error-loadend
         const response = xhr.responseText;//xhr.response->DORA xdsh=> chize ki az back miya
         posts = JSON.parse(response);
@@ -109,6 +115,8 @@ function getAllPosts() {
             addEditBtn.onclick = () => {
                 inputPriceEl.focus();
                 submitBtn.innerHTML = `Edit`;
+                inputPriceEl.value = o.price;
+                inputCategoryEl.value = o.category;
                 formSubmitEl.onsubmit = () => {
                     itemList.innerHTML = ``;
                     editData(o.id);
@@ -116,6 +124,10 @@ function getAllPosts() {
             }
         })
     };
+
+    xhr.onloadend = () => {
+        loading.classList.add('hidden');
+    }
 
     xhr.send();
 }
@@ -136,7 +148,11 @@ function addData() {
     };
 
     xhr.onload = () => {
-        
+        loading.classList.remove('hidden');
+    }
+
+    xhr.onloadend = () => {
+        loading.classList.add('hidden');
     }
 
     xhr.send(JSON.stringify(data));
@@ -158,8 +174,13 @@ function editData(id) {
     };
 
     xhr.onload = () => {
-
+        loading.classList.remove('hidden');
     }
+
+    xhr.onloadend = () => {
+        loading.classList.add('hidden');
+    }
+
     xhr.send(JSON.stringify(data));
     getAllPosts();
 }
