@@ -1,4 +1,4 @@
-const url = 'http://localhost:9999/api';
+const url = 'https://requeststaha.herokuapp.com/api';
 const rootEl = document.getElementById('root');
 const img = '../media/loader.gif';
 
@@ -17,11 +17,6 @@ rootEl.innerHTML = `
     </ul>
 `;
 
-{/* <form data-action="find">
-        <input placeholder="id" data-id="id-number"/>
-        <button>give me the id</button>
-    </form> */}
-
 const loading = document.createElement('img');
 loading.src = img; 
 rootEl.appendChild(loading);
@@ -31,7 +26,6 @@ const formSubmitEl = rootEl.querySelector('[data-action="submit-form"]');
 const inputPriceEl = rootEl.querySelector('[data-id="price"]');
 const inputCategoryEl = rootEl.querySelector('[data-id="category"]');
 const submitBtn = rootEl.querySelector('[data-action="submit-but"]');
-const findBtn = rootEl.querySelector('[data-action="find"]');
 const idNum = rootEl.querySelector('[data-id="id-number"]')
 let itemList = rootEl.querySelector('[data-id="item-list"]');
 
@@ -39,51 +33,6 @@ let itemList = rootEl.querySelector('[data-id="item-list"]');
 formSubmitEl.onsubmit = evt => {
     addData();
 };
-
-findBtn.onsubmit = evt => {
-    evt.preventDefault();
-    const index = idNum;
-    itemList.innerHTML = ``;
-    findData(index);
-}
-
-// function findData(id) {
-//     const queryParams = `/posts/${id}`;
-//     const xhr = new XMLHttpRequest();
-//     xhr.open('GET', `${url}${queryParams}`);
-
-//     xhr.onload = () => {
-//         const response = xhr.responseText;
-//         posts = JSON.parse(response);
-//         console.log(posts);
-
-//         let itemListEl = document.createElement('li');
-//         itemListEl.innerHTML = `
-//             Покупка на сумму ${posts.price} в категории ${posts.category}
-//             <button data-action="deletebtn">X</button>
-//             <button data-action="edit">Edit</button>
-//             `;
-//         itemList.appendChild(itemListEl);
-//         const addDeleteBtn = itemListEl.querySelector('[data-action="deletebtn"]');
-//         addDeleteBtn.onclick = () => {
-//             itemList.innerHTML = ``;
-//             deleteBtn(posts.id);
-//         }
-
-//         const addEditBtn = itemListEl.querySelector('[data-action="edit"]');
-//         addEditBtn.onclick = () => {
-//             inputPriceEl.focus();
-//             submitBtn.innerHTML = `Edit`;
-//             formSubmitEl.onsubmit = () => {
-//                 itemList.innerHTML = ``;
-//                 editData(posts.id);
-//             }
-//         }
-//     }
-
-//     xhr.send();
-// }
-
 
 function getAllPosts() {
     const queryParams = '/posts';
