@@ -31,6 +31,7 @@ let itemList = rootEl.querySelector('[data-id="item-list"]');
 
 
 formSubmitEl.onsubmit = evt => {
+    evt.preventDefault();
     addData();
 };
 
@@ -55,13 +56,15 @@ function getAllPosts() {
             itemList.appendChild(itemListEl);
             //dalshe baroi digar chizay imruzda xay darkor nest, dalshe paga
             const addDeleteBtn = itemListEl.querySelector('[data-action="deletebtn"]');
-            addDeleteBtn.onclick = () => {
+            addDeleteBtn.onclick = evt => {
+                evt.preventDefault();
                 itemList.innerHTML = ``;
                 deleteBtn(o.id);
             }
 
             const addEditBtn = itemListEl.querySelector('[data-action="edit"]');
-            addEditBtn.onclick = () => {
+            addEditBtn.onclick = evt => {
+                evt.preventDefault();
                 inputPriceEl.focus();
                 submitBtn.innerHTML = `Edit`;
                 inputPriceEl.value = o.price;
