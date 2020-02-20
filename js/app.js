@@ -140,7 +140,7 @@ function editData(id) {
 function deleteBtn(id) {
     const queryParams = `/posts/${id}`;
     const xhr = new XMLHttpRequest();
-    xhr.open('DELETE', `http://localhost:9999/api${queryParams}`);
+    xhr.open('DELETE', `${url}${queryParams}`);
     xhr.onload = () => {
         getAllPosts();
         console.log(id);
